@@ -915,9 +915,9 @@
 {
     if (self = [super init]) {
         // default values
-        self.location = YES;
-        self.toolbar = YES;
-        self.closebuttoncaption = nil;
+        self.location = NO;
+        self.toolbar = NO;
+        self.closebuttoncaption = "THIS IS A BUTTON";
         self.toolbarposition = kInAppBrowserToolbarBarPositionBottom;
         self.clearcache = NO;
         self.clearsessioncache = NO;
