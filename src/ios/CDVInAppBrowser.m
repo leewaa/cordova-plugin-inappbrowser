@@ -502,6 +502,8 @@
     self.webView.scalesPageToFit = NO;
     self.webView.userInteractionEnabled = YES;
 
+    [self createCloseButton];
+
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     self.spinner.alpha = 1.000;
     self.spinner.autoresizesSubviews = YES;
@@ -586,6 +588,7 @@
     [self.toolbar setItems:@[self.closeButton, flexibleSpaceButton, self.backButton, fixedSpaceButton, self.forwardButton]];
 
     self.view.backgroundColor = [UIColor grayColor];
+    [self.view addSubview:self.customCloseButton];
     [self.view addSubview:self.toolbar];
     [self.view addSubview:self.addressLabel];
     [self.view addSubview:self.spinner];
@@ -720,6 +723,23 @@
             [self setWebViewFrame:self.view.bounds];
         }
     }
+}
+
+- (void)createCloseButton
+{
+    self.customCloseButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.customCloseButton setImage:[UIImage imageNamed:@"close_button.png"] forState:UIControlStateNormal];
+    [self.customCloseButton setImage:[UIImage imageNamed:@"close_button_highlighted.png"] forState:UIControlStateHighlighted];
+
+    [self.customCloseButton setTitleEdgeInsets:UIEdgeInsetsMake(2, 0, 0, 40)];
+    [self.customCloseButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -128)];
+    [self.customCloseButton setTitle:@"CLOSE" forState:UIControlStateNormal];
+    [self.customCloseButton setTitleColor:[UIColor colorWithRed:0.647 green:0.647 blue:0.647 alpha:1] forState:UIControlStateNormal];
+    [self.customCloseButton setTitleColor:[UIColor colorWithRed:0.98 green:0.682 blue:0.141 alpha:1] forState:UIControlStateHighlighted];
+    [self.customCloseButton sizeToFit];
+    [self.customCloseButton setFrame:CGRectMake(self.view.frame.size.height-128, 20, 128, 44)];
+
+    [self.customCloseButton addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)viewDidLoad
@@ -917,7 +937,8 @@
         // default values
         self.location = NO;
         self.toolbar = NO;
-        self.closebuttoncaption = "THIS IS A BUTTON";
+        self.customclosebutton = YES;
+        self.closebuttoncaption = nil;
         self.toolbarposition = kInAppBrowserToolbarBarPositionBottom;
         self.clearcache = NO;
         self.clearsessioncache = NO;
